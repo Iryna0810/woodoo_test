@@ -9,31 +9,48 @@
     <link rel="stylesheet" href="./input.css"/>
     <script type="module" src="./index.js"></script>
   </head>
-  <body>
+  <body class="font-Space Grotesk">
     <div class="p-6 bg-light-sand">
-    <header class="border-b-2">
-      <div class="flex justify-between space-x-10">     
-      <div class="flex align-start">
-      <img class="cursor-pointer h-23 w-23 shrink-0 mt-0" src="./images/logo-woodoo.svg" alt="logo-woodoo"/>
-      <div>
-      <h3 class="text-[24px] font-bold p-0 "> WooDoo</h3><br/>
-      <h3 class="text-[24px] font-bold p-0 ">Test</h3>
+    <header class="items-center">
+      <div class="border-b-2 pb-6 flex justify-between space-x-10">     
+      <div class="flex items-start ">
+      <img class="cursor-pointer h-23 w-23 shrink-0 mt-1" src="./images/logo-woodoo.svg" alt="logo-woodoo"/>
+      <div class="ml-1 items-start h-12">
+      <h3 class="items-start text-4 font-bold mt-0  p-0 "> WooDoo <br/>Test</h3>
       </div>
       </div>
+
       <div class="flex space-x-4 h-[34px]">
         <img class="cursor-pointer shrink-0 mt-0" height="24px" width="24px"  src="./images/shopping-cart.svg" alt="shopping-cart"/>
-        <button type="button" class="block p-3 rounded-xl shrink-0 bg-black text-white" width="78px" height="34px">Sign-up</button>
+        <button type="button" class="font-semi-bold flex items-center p-3 rounded-xl bg-black text-white" width="78px" height="34px">Sign-up</button>
       </div>
       </div>
+</header>
+<main>
+      <div class="bg-black mt-6 p-6 flex h-18 rounded-xl items-center ">
+       <div class="flex items-center space-x-[6px]">
+        <img height="24px" width="24px" class="shrink-0 mt-0" src="./images/alert-circle.svg"/>
+        <p class="text-light-sand font-bold ">ALPHA</p>
+        </div>
+        <p class="text-light-sand ml-6 sm:hidden">Important info</p>
+        <p class="text-light-sand ml-8 hidden sm:block">Important information about our service</p>
+
+        <img height="24px" width="24px" class="shrink-0 ml-auto" src="./images/chevron-down.svg" />
+      </div>
+
+      <div>
+                <div class="galleryCards-js gallery-markup"></div>
+      </div>
+
+    </main>
     
-    </header>
     <!-- ❗️❗️❗️ Add partials like so for every page -->
     <!-- <include src="./partials/example.html"></include> -->
     <!-- <h1 class="text-5xl font-bold underline">
       Hello world!
     </h1> -->
 
-    <div class="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-lg flex items-center space-x-4">
+    <div class="m-5 p-6 max-w-sm mx-auto bg-white rounded-xl shadow-lg flex items-center space-x-4">
       <div class="shrink-0">
         <img class="h-12 w-120" src="../src/images/logo.png" alt="ChitChat Logo">
       </div>
