@@ -16,6 +16,10 @@ module.exports = {
       'white': '#ffffff',
       extend: {},
     },
+      fontFamily: {
+      sans: ['Space Grotesk', 'sans-serif'],
+      serif: ['Merriweather', 'serif'],
+    },
     plugins: [],
   }
 }
