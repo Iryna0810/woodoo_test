@@ -28,8 +28,8 @@ const handleGallery = (evt) => {
   console.log(shoppingBag);
   const products = shoppingBag.map(item => shoppingBagAllProducts.filter(product =>
     product.id === item));
-  const data = [...products];
-  console.log(data);
+  // const data = [...products];
+  // console.log(data);
 };
 
 
