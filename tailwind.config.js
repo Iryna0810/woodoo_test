@@ -20,7 +20,12 @@ module.exports = {
       sans: ['Space Grotesk', 'sans-serif'],
       serif: ['Merriweather', 'serif'],
     },
-    plugins: [],
+    corePlugins: {
+    aspectRatio: false,
+  },
+    plugins: [
+      require('@tailwindcss/aspect-ratio'),
+    ],
   }
 }
   
