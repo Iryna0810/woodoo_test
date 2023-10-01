@@ -25,7 +25,7 @@ console.log(woodooCardContainer);
 const ApiWoodooCards = new APIWoodoo();
 
 const handlerLoadWindow = () => {
-    ApiWoodooCards.fetchCard().then(({ data }) => 
+ApiWoodooCards.fetchCard().then(({ data }) => 
 {const { products } = data;
 renderMarkup(products)}
     
