@@ -16,7 +16,7 @@
       <div class="flex items-start ">
       <img class="cursor-pointer h-23 w-23 shrink-0 mt-1" src="./images/logo-woodoo.svg" alt="logo-woodoo"/>
       <div class="ml-1 md:ml-3 items-start h-12">
-      <h3 class="items-start text-4 font-bold mt-0  p-0 "> WooDoo <br/>Test</h3>
+      <h3 class="items-start text-4 font-bold mt-0  p-0 ">WooDoo <br/>Test</h3>
       </div>
       </div>
 
@@ -27,7 +27,7 @@
       </div>
 </header>
 <main>
-      <div class="bg-black mt-6 p-6 flex h-18 rounded-xl items-center ">
+  <div class="bg-black mt-6 p-6 flex h-18 rounded-xl items-center ">
        <div class="flex items-center space-x-[6px]">
         <img height="24px" width="24px" class="shrink-0 mt-0" src="./images/alert-circle.svg"/>
         <p class="text-light-sand font-bold ">ALPHA</p>
@@ -36,14 +36,13 @@
         <p class="text-light-sand ml-8 hidden sm:block">Important information about our service</p>
 
         <img height="24px" width="24px" class="shrink-0 ml-auto" src="./images/chevron-down.svg" />
-      </div>
+  </div>
 
-      <div>
+  <div>
                 <div class="p-6 grid grid-cols-1 md:grid-cols-4 md:gap-6 galleryCards-js gallery-markup"></div>
-      </div>
+  </div>
 
-      /--------------------Modal----------------------------/
-<div class="relative z-10 backdrop ease-in-out duration-500 opacity-0 bg-opacity-25" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+  <div class="relative z-10 backdrop ease-in-out duration-500 opacity-0 bg-opacity-25" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
       <div class="absolute inset-0 bg-black bg-opacity-75">
   
 <div class="fixed inset-0 overflow-hidden modal translate-x-full">
@@ -71,7 +70,7 @@
           <div class="border-t border-gray-200 px-4 py-6 sm:px-6">
             <div class="flex justify-between text-base font-medium text-gray-900">
               <p>Subtotal</p>
-              <p>$262.00</p>
+              <p class="total">$262.00</p>
             </div>
             <p class="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
             <div class="mt-6">
@@ -96,24 +95,29 @@
 
         
       </div>
-</div>
+  </div>
     </main>
     
-    <!-- ❗️❗️❗️ Add partials like so for every page -->
-    <!-- <include src="./partials/example.html"></include> -->
-    <!-- <h1 class="text-5xl font-bold underline">
-      Hello world!
-    </h1> -->
 
-    <div class="m-5 p-6 max-w-sm mx-auto bg-white rounded-xl shadow-lg flex items-center space-x-4">
-      <div class="shrink-0">
-        <img class="h-12 w-120" src="../src/images/logo.png" alt="ChitChat Logo">
-      </div>
-      <div>
-        <div class="text-xl font-medium text-black">ChitChat</div>
-        <p class="text-slate-500">You have a new message!</p>
-      </div>
-    </div>
-    </div>
+<nav class="pagination-container flex justify-between">
+  <button class="pagination-button cursor-pointer shrink-0 sm:hidden  first:ml-0 text-xs font-semibold flex w-8 h-8 mx-1 p-0 rounded-full items-center justify-center leading-tight relative border border-solid border-pink-500 bg-white text-pink" id="prev-button" aria-label="Previous page" title="Previous page">
+    &lt;
+  </button>
+
+  <div id="pagination-numbers" class="flex hidden sm:block items-center justify-center">
+
+  </div>
+
+  <button class="pagination-button cursor-pointer shrink-0 sm:hidden first:ml-0 text-xs font-semibold flex w-8 h-8 mx-1 p-0 rounded-full items-center justify-center leading-tight relative border border-solid border-pink-500 bg-white text-pink" id="next-button" aria-label="Next page" title="Next page">
+    &gt;
+  </button>
+</nav>
+
+
+</div>
+</div>
+</div>
+
+
   </body>
 </html>

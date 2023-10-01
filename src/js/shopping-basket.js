@@ -10,11 +10,7 @@ const modal = document.querySelector('.modal');
 const productsList = document.querySelector('.list');
 const closeModalBtn = document.querySelector('.close')
 const closeBtn = document.querySelector('.close-btn')
-console.log(backdrop);
-console.log(modal);
-// let shoppingBag = [];
-
-// backdrop.addEventListener('click', onBackdropClick);
+let total = 0;
 
 const save = (key, value) => {
   try {
@@ -35,17 +31,12 @@ const load = key => {
 };
 
 function showBackdrop() {
-  // document.body.classList.add('show-modal');
-  // window.addEventListener('keydown', onEscKeyPress);
   backdrop.classList.remove('opacity-0');
   backdrop.classList.add('opacity-100');
   showModal();
 }
 function hideBackdrop(evt) {
     evt.preventDefault();
-  //   if (evt.target.nodeName !== 'BUTTON') {
-  //       return;
-  // }
   backdrop.classList.remove('opacity-100');
   backdrop.classList.add('opacity-0');
   closeModal();
@@ -64,21 +55,24 @@ function closeModal() {
 const handleGallery = (evt) => {
   let shoppingBagAllProducts = load('shopping-list') ? load('shopping-list') : [];
   let shoppingBag = load('favorite-list') ? load('favorite-list') : [];
-  console.log(shoppingBagAllProducts);
-  console.log(shoppingBag);
+  // console.log(shoppingBagAllProducts);
+  // console.log(shoppingBag);
   const products = shoppingBag.map(item => {
     const [data] = shoppingBagAllProducts.filter(product =>
     product.id === item);
     return data;
   } 
   );
-  console.log(products)
   showBackdrop();
   renderMarkupList(products);
 
-  const removeCard = document.querySelector('.list');
-  console.log(removeCard);
+  const totalEl = document.querySelector('.total');
+  // products.map((product) => console.log(Number(product.variants[0].price.split('.')[0])));
+  totalPrice = products.reduce((total, product) => {return Number(total) + Number(product.variants[0].price.split('.')[0])}, 0);
+  
+  totalEl.innerHTML = totalPrice;
 
+  const removeCard = document.querySelector('.list');
   removeCard.addEventListener('click', removeItem);
 };
 
@@ -87,20 +81,29 @@ function removeItem(evt) {
     return;
   }
   let shoppingBag = load('favorite-list') ? load('favorite-list') : [];
+  let shoppingBagAllProducts = load('shopping-list') ? load('shopping-list') : [];
   let cardId = Number(evt.target.closest('.remove').getAttribute('data-id'));
-  console.log(cardId)
-
   let productCard = evt.target.closest('.card-product')
-  console.log(productCard);
+
  
   productCard.remove();
-
   const newData = shoppingBag.filter((item) => item !== cardId);
   save('favorite-list', newData);
+
+  const totalEl = document.querySelector('.total');
+
+    const products = newData.map(item => {
+    const [data] = shoppingBagAllProducts.filter(product =>
+    product.id === item);
+    return data;
+    });
+  
+  totalPrice = products.reduce((total, product) => {return Number(total) + Number(product.variants[0].price.split('.')[0])}, 0);
+  totalEl.textContent = totalPrice;
 }
 
 function renderMarkupList(data) {
-  console.log(data);
+  // console.log(data);
   const list = data.map(({ id, images, title, body_html, variants }) => {
     const picture = images[0];
     const card = `
@@ -135,7 +138,7 @@ function renderMarkupList(data) {
     return card;
   }).join('');
 
-  productsList.insertAdjacentHTML("beforeend", list);
+  productsList.innerHTML=list;
  } 
 
 
@@ -146,10 +149,8 @@ const handleStorageList = (evt) => {
   }
 
   let cardId = Number(evt.target.getAttribute('data-id'));
-  console.log(cardId)
   let shoppingBag = load('favorite-list') ? load('favorite-list') : [];
   const searchId = shoppingBag.find(item => item === cardId)
-  console.log(searchId);
   if (!searchId) shoppingBag.push(cardId);
   save('favorite-list', shoppingBag);  
 } 
