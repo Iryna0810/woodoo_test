@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { renderMarkup } from './render-markup';
 
 class APICard {
   #BASE_URL = 'https://voodoo-sandbox.myshopify.com/products.json';
@@ -34,15 +35,7 @@ class APICard {
   }
 }
 
-const ApiCardList = new APICard();
-const cardArray = ApiCardList.fetchCardTotal()
-  .then(({ data }) => {
-    const { products } = data;
-    console.log(products.length);
-    return products;
-  })
-  .catch(err => { console.log(err);});;
-  ;
+
 
 
 const paginationNumbers = document.getElementById("pagination-numbers");
@@ -50,11 +43,12 @@ const paginatedList = document.querySelector(".galleryCards-js");
 const listItems = document.querySelectorAll("li");
 const nextButton = document.getElementById("next-button");
 const prevButton = document.getElementById("prev-button");
-
+const ApiWoodooCards = new APICard;
 const paginationLimit = 24;
-let total = 100;
+let total = 461;
 const pageCount = Math.ceil(total / paginationLimit);
 let currentPage = 1;
+let listCardStorage = [];
 
 const disableButton = (button) => {
   button.classList.add("disabled");
@@ -83,9 +77,13 @@ const handlePageButtonsStatus = () => {
 const handleActivePageNumber = () => {
   document.querySelectorAll(".pagination-number").forEach((button) => {
     button.classList.remove("text-pink");
+    button.classList.remove("border-pink");
     const pageIndex = Number(button.getAttribute("page-index"));
+    // console.log(pageIndex);
     if (pageIndex == currentPage) {
       button.classList.add("text-pink");
+      button.classList.add("border-pink");
+
     }
   });
 };
@@ -108,7 +106,14 @@ const getPaginationNumbers = () => {
 
 const setCurrentPage = (pageNum) => {
   currentPage = pageNum;
+  console.log(currentPage);
+  
 
+ApiWoodooCards.fetchCard(currentPage).then(({ data }) => 
+{const { products } = data;
+renderMarkup(products)}
+
+).catch(err => { console.log(err); });
   handleActivePageNumber();
   handlePageButtonsStatus();
   

@@ -14,6 +14,9 @@ module.exports = {
       'light-sand': '#FCF7E6',
       'black': '#000000',
       'white': '#ffffff',
+      'violet-light': '#C4C5F1',
+      'silver': '#C1C1C9',
+      'grey-light': '#CCCCCC',
       extend: {},
     },
       fontFamily: {

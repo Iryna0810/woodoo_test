@@ -56,7 +56,7 @@ const handleGallery = (evt) => {
   let shoppingBagAllProducts = load('shopping-list') ? load('shopping-list') : [];
   let shoppingBag = load('favorite-list') ? load('favorite-list') : [];
   // console.log(shoppingBagAllProducts);
-  // console.log(shoppingBag);
+  //  console.log(shoppingBag);
   const products = shoppingBag.map(item => {
     const [data] = shoppingBagAllProducts.filter(product =>
     product.id === item);
@@ -149,6 +149,7 @@ const handleStorageList = (evt) => {
   }
 
   let cardId = Number(evt.target.getAttribute('data-id'));
+  console.log(cardId);
   let shoppingBag = load('favorite-list') ? load('favorite-list') : [];
   const searchId = shoppingBag.find(item => item === cardId)
   if (!searchId) shoppingBag.push(cardId);
