@@ -52,8 +52,6 @@ const handleGallery = (evt) => {
   let shoppingBagAllProducts = load('shopping-list') ? load('shopping-list') : [];
   let shoppingBag = load('favorite-list') ? load('favorite-list') : [];
   let favoriteCards = load('favorite-list-object') ? load('favorite-list-object') : [];
-  // console.log(shoppingBagAllProducts);
-  //  console.log(shoppingBag);
   
   showBackdrop();
   renderMarkupList(favoriteCards);
