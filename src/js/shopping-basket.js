@@ -1,16 +1,12 @@
-
 const notPic = new URL('../images/no-photo-available-icon-8.jpg', import.meta.url);
-
 
 const cardList = document.querySelector('.shopping-cart');
 const itemList = document.querySelector('.galleryCards-js');
-const shoppingCart = document.querySelector('.backdrop');
 const backdrop = document.querySelector('.backdrop');
 const modal = document.querySelector('.modal');
 const productsList = document.querySelector('.list');
 const closeModalBtn = document.querySelector('.close')
 const closeBtn = document.querySelector('.close-btn')
-let total = 0;
 
 const save = (key, value) => {
   try {
@@ -55,20 +51,15 @@ function closeModal() {
 const handleGallery = (evt) => {
   let shoppingBagAllProducts = load('shopping-list') ? load('shopping-list') : [];
   let shoppingBag = load('favorite-list') ? load('favorite-list') : [];
-  // console.log(shoppingBagAllProducts);
-  //  console.log(shoppingBag);
-  const products = shoppingBag.map(item => {
-    const [data] = shoppingBagAllProducts.filter(product =>
-    product.id === item);
-    return data;
-  } 
-  );
+  let favoriteCards = load('favorite-list-object') ? load('favorite-list-object') : [];
+  console.log(shoppingBagAllProducts);
+   console.log(shoppingBag);
+  
   showBackdrop();
-  renderMarkupList(products);
+  renderMarkupList(favoriteCards);
 
   const totalEl = document.querySelector('.total');
-  // products.map((product) => console.log(Number(product.variants[0].price.split('.')[0])));
-  totalPrice = products.reduce((total, product) => {return Number(total) + Number(product.variants[0].price.split('.')[0])}, 0);
+  totalPrice = favoriteCards.reduce((total, product) => {return Number(total) + Number(product.variants[0].price.split('.')[0])}, 0);
   
   totalEl.innerHTML = totalPrice;
 
@@ -82,6 +73,7 @@ function removeItem(evt) {
   }
   let shoppingBag = load('favorite-list') ? load('favorite-list') : [];
   let shoppingBagAllProducts = load('shopping-list') ? load('shopping-list') : [];
+  let favoriteProducts = load('favorite-list-object') ? load('favorite-list-object') : [];
   let cardId = Number(evt.target.closest('.remove').getAttribute('data-id'));
   let productCard = evt.target.closest('.card-product')
 
@@ -89,6 +81,9 @@ function removeItem(evt) {
   productCard.remove();
   const newData = shoppingBag.filter((item) => item !== cardId);
   save('favorite-list', newData);
+
+  const newDataList = favoriteProducts.filter((item) => item.id !== cardId);
+  save('favorite-list-object', newDataList);
 
   const totalEl = document.querySelector('.total');
 
@@ -103,7 +98,7 @@ function removeItem(evt) {
 }
 
 function renderMarkupList(data) {
-  // console.log(data);
+  console.log(data);
   const list = data.map(({ id, images, title, body_html, variants }) => {
     const picture = images[0];
     const card = `
@@ -139,13 +134,13 @@ function renderMarkupList(data) {
   }).join('');
 
   productsList.innerHTML=list;
- } 
+};
 
 
 const handleStorageList = (evt) => {
   evt.preventDefault();
-    if (evt.target.nodeName !== 'BUTTON') {
-        return;
+  if (evt.target.nodeName !== 'BUTTON') {
+    return;
   }
 
   let cardId = Number(evt.target.getAttribute('data-id'));
@@ -153,10 +148,21 @@ const handleStorageList = (evt) => {
   let shoppingBag = load('favorite-list') ? load('favorite-list') : [];
   const searchId = shoppingBag.find(item => item === cardId)
   if (!searchId) shoppingBag.push(cardId);
-  save('favorite-list', shoppingBag);  
-} 
+  save('favorite-list', shoppingBag);
+  
+  let shoppingBagAllProducts = load('shopping-list') ? load('shopping-list') : [];
+  const [product] = shoppingBagAllProducts.filter(product =>
+    product.id === cardId);
+  let favoriteCards = load('favorite-list-object') ? load('favorite-list-object') : [];
+  favoriteCards.push(product);
+  save('favorite-list-object', favoriteCards);
+
+  let favoriteProducts = load('favorite-list-object') ? load('favorite-list-object') : [];
+};
 
 itemList.addEventListener('click', handleStorageList);
 cardList.addEventListener('click', handleGallery);
 closeModalBtn.addEventListener('click', hideBackdrop);
 closeBtn.addEventListener('click', hideBackdrop);
+
+

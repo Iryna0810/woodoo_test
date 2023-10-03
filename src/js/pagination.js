@@ -36,10 +36,7 @@ class APICard {
 }
 
 
-
-
 const paginationNumbers = document.getElementById("pagination-numbers");
-const paginatedList = document.querySelector(".galleryCards-js");
 const listItems = document.querySelectorAll("li");
 const nextButton = document.getElementById("next-button");
 const prevButton = document.getElementById("prev-button");
@@ -47,8 +44,8 @@ const ApiWoodooCards = new APICard;
 const paginationLimit = 24;
 let total = 461;
 const pageCount = Math.ceil(total / paginationLimit);
+console.log(pageCount)
 let currentPage = 1;
-let listCardStorage = [];
 
 const disableButton = (button) => {
   button.classList.add("disabled");
@@ -79,7 +76,6 @@ const handleActivePageNumber = () => {
     button.classList.remove("text-pink");
     button.classList.remove("border-pink");
     const pageIndex = Number(button.getAttribute("page-index"));
-    // console.log(pageIndex);
     if (pageIndex == currentPage) {
       button.classList.add("text-pink");
       button.classList.add("border-pink");
@@ -110,7 +106,9 @@ const setCurrentPage = (pageNum) => {
   
 
 ApiWoodooCards.fetchCard(currentPage).then(({ data }) => 
-{const { products } = data;
+{
+  const { products } = data;
+
 renderMarkup(products)}
 
 ).catch(err => { console.log(err); });
@@ -130,7 +128,7 @@ renderMarkup(products)}
 
 window.addEventListener("load", () => {
   getPaginationNumbers();
-  setCurrentPage(1);
+  setCurrentPage(currentPage);
 
   prevButton.addEventListener("click", () => {
     setCurrentPage(currentPage - 1);
@@ -150,3 +148,21 @@ window.addEventListener("load", () => {
     }
   });
 });
+
+function save (key, value) {
+  try {
+    const serializedState = JSON.stringify(value);
+    localStorage.setItem(key, serializedState);
+  } catch (error) {
+    console.error('Set state error: ', error.message);
+  }
+};
+
+function load (key) {
+  try {
+    const serializedState = localStorage.getItem(key);
+    return serializedState === null ? 0 : JSON.parse(serializedState);
+  } catch (error) {
+    console.error('Get state error: ', error.message);
+  }
+};

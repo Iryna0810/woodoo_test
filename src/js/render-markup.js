@@ -12,24 +12,21 @@ function save(key, value) {
 }
 
 export const renderMarkup = (products) => {
-    // loadCards.push(products);
-      let shoppingBagAllProducts = load('shopping-list') ? load('shopping-list') : [];
-  let shoppingBag = load('favorite-list') ? load('favorite-list') : [];
-    console.log(products);
-    save('shopping-list', products);
-    const createdElements = products.map(({
-        id, images, title, variants
-    }) => {
-      const picture = images[0];
+  console.log(products);
+  save('shopping-list', products);
+  const createdElements = products.map(({
+    id, images, title, variants
+  }) => {
+    const picture = images[0];
 
-      const card = `<li class="galleryEl block my-auto" data-id=${id} >
+    const card = `<li class="galleryEl block my-auto" data-id=${id} >
         
     <div class="max-w-[342px] md:max-w-[300px] mx-auto mb-12 bg-white overflow-hidden rounded-xl shadow-lg items-center">
     <div class="h-[300px] w-[342px] md:w-[300px]  overflow-hidden items-center flex">
         <img class="contain h-full w-full my-auto" src='${images.length === 0
-            ? `${notPic}`
-            : `${picture.src}`
-            }'alt="product photo ${id}"/> 
+        ? `${notPic}`
+        : `${picture.src}`
+      }'alt="product photo ${id}"/> 
     </div>
     <div class="flex justify-between px-1 my-3">
     <div>
@@ -43,13 +40,13 @@ export const renderMarkup = (products) => {
     </div>
   
     <button type='button' data-id=${id} data-action="save" class="button w-full rounded-xl mb-0 py-2 px-4 bg-black text-white font-semibold rounded-sd shadow-md hover:bg-pink focus:outline-none focus:ring-2 focus:ring-dark-grey focus:ring-opacity-75">ADD TO CART</button>
-
-  
         </li> 
     `;
-                return card;
+    return card;
             
-    }).join('');
+  }).join('');
 
-    woodooCardContainer.innerHTML = createdElements;
-}
+  woodooCardContainer.innerHTML = createdElements;
+};
+
+

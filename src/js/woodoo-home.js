@@ -1,11 +1,8 @@
 import axios from 'axios';
 import { renderMarkup } from './render-markup';
 
-const notPic = new URL('../images/no-photo-available-icon-8.jpg', import.meta.url);
-
-
 class APIWoodoo {
-   #BASE_URL = 'https://voodoo-sandbox.myshopify.com/products.json?limit=24';
+   #BASE_URL = 'https://voodoo-sandbox.myshopify.com/products.json';
    
    constructor() {
     this.page = 1;
@@ -16,14 +13,14 @@ class APIWoodoo {
       page = 1;
         }
         try {
-            return await axios.get(`${this.#BASE_URL}&${page}`)
+            return await axios.get(`${this.#BASE_URL}?&page=${page}&limit=24`)
         } catch (error ) {
             throw new Error(err.message);
         }
-    }
+  }
 }
 
-const woodooCardContainer = document.querySelector('.galleryCards-js')
+// const woodooCardContainer = document.querySelector('.galleryCards-js')
 const ApiWoodooCards = new APIWoodoo();
 
 
@@ -33,7 +30,7 @@ const handlerLoadWindow = () => {
     return console.log(pageIndex);
   });
   
-  ApiWoodooCards.fetchCard().then(({ data }) => {
+  ApiWoodooCards.fetchCard(1).then(({ data }) => {
     const { products } = data;
     renderMarkup(products)
   }
@@ -52,3 +49,4 @@ function save(key, value) {
 
 
 window.addEventListener('load', handlerLoadWindow);
+export default APIWoodoo
