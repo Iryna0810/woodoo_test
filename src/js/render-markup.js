@@ -12,7 +12,6 @@ function save(key, value) {
 }
 
 export const renderMarkup = (products) => {
-  console.log(products);
   save('shopping-list', products);
   const createdElements = products.map(({
     id, images, title, variants

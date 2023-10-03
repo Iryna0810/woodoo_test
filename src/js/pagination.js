@@ -44,7 +44,7 @@ const ApiWoodooCards = new APICard;
 const paginationLimit = 24;
 let total = 461;
 const pageCount = Math.ceil(total / paginationLimit);
-console.log(pageCount)
+// console.log(pageCount)
 let currentPage = 1;
 
 const disableButton = (button) => {
@@ -102,9 +102,6 @@ const getPaginationNumbers = () => {
 
 const setCurrentPage = (pageNum) => {
   currentPage = pageNum;
-  console.log(currentPage);
-  
-
 ApiWoodooCards.fetchCard(currentPage).then(({ data }) => 
 {
   const { products } = data;
