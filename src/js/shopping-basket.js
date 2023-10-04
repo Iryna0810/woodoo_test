@@ -65,42 +65,6 @@ const handleGallery = (evt) => {
   const totalEl = document.querySelector('.total');
   const price = totalPrice(favoriteCards);
   totalEl.innerHTML = price;
-  // console.log(evt.target.dataset.counter);
-
-//   for (let btn of document.querySelectorAll("#counter")) {
-//   let clicks = 0
-  
-//   btn.addEventListener('click', e => {
-//     btn.textContent = ++clicks
-//   })
-  // }
-  // const counterEl = document.querySelectorAll('.counter');
-  // // const increaseEl = document.querySelectorAll('.increase')
-  //   console.log(counterEl);
-  // for (i = 0; i < counterEl.length; i++){
-  //   console.log(counterEl);
-
-  // }
-
-  
-  // for (i = 0; i < favoriteCards.length; i += 1){
-    
-
-  // }
-  
-  // for (i = 0; i < counterEl.length; i++){
-  //   console.log(counterEl[i]);
-
-  // }
-  // console.log(counterEl[1]);
-  // counterEl.map((item) => {
-    
-  //   console.log(item);
-    
-  // })
-  
-  // let counterEl = evt.target.closest(".card-product");
-  // console.log(counterEl);
 
 };
 
@@ -165,7 +129,6 @@ function decrease(evt) {
   
 
   function renderMarkupList(data) {
-    // console.log(data);
     const list = data.map(({ id, images, title, variants }) => {
       const picture = images[0];
       const card = `
@@ -218,7 +181,6 @@ function decrease(evt) {
     }
 
     let cardId = Number(evt.target.getAttribute('data-id'));
-    console.log(cardId);
     let shoppingBag = load('favorite-list') ? load('favorite-list') : [];
     const searchId = shoppingBag.find(item => item === cardId)
     if (!searchId) shoppingBag.push(cardId);
@@ -227,10 +189,8 @@ function decrease(evt) {
     let shoppingBagAllProducts = load('shopping-list') ? load('shopping-list') : [];
     const [product] = shoppingBagAllProducts.filter(product =>
       product.id === cardId);
-    console.log(product);
 
     let favoriteCards = load('favorite-list-object') ? load('favorite-list-object') : [];
-    console.log(favoriteCards);
     const searchIdFavorite = favoriteCards.find(item => item.id === cardId)
     if (!searchIdFavorite) favoriteCards.push(product);
     save('favorite-list-object', favoriteCards);
