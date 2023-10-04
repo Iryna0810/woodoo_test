@@ -3,7 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- <link href="/dist/output.css" rel="stylesheet"> -->
     <title>Woodoo test</title>
     <link rel="stylesheet" href="./sass/index.scss" />
     <link rel="stylesheet" href="./input.css"/>
@@ -14,8 +13,8 @@
     <header class="items-center">
       <div class="border-b-2 p-6 md:p-12 flex justify-between space-x-10">      
       <div class="flex items-center ">
-      <img class="cursor-pointer h-23 w-23 shrink-0" src="./images/logo-woodoo.svg" alt="logo-woodoo"/>
-      <div class="ml-1 md:ml-3 items-center h-12">
+      <img class="cursor-pointer shrink-0" height="45px" width="45px" src="./images/logo-woodoo.svg" alt="logo-woodoo"/>
+      <div class="ml-1 md:ml-3 items-center h-12" >
       <h2 class="items-start md:text-3xl text-start font-bold leading-9 tracking-tight font-bold mt-0  p-0 ">WooDoo <br/>Test</h2>
       </div>
       </div>
@@ -56,10 +55,10 @@
         <div class="flex h-full flex-col modal 
         transform transition ease-in-out duration-500 
         sm:duration-700 translate-x-full 
-        overflow-y-scroll bg-white shadow-xl">
+        overflow-y-scroll bg-black text-white shadow-xl">
           <div class="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
             <div class="flex items-start justify-between">
-              <h2 class="text-lg font-medium text-gray-900" id="slide-over-title">Shopping cart</h2>
+              <h2 class="text-lg font-medium text-white" id="slide-over-title">Shopping cart</h2>
               <div class="ml-3 flex h-7 items-center">
                 <div class="ml-3 flex h-7 items-center">
                   <button type="button" class="relative close -m-2 p-2 text-gray hover:text-pink">
@@ -108,15 +107,15 @@
         
       </div>
   </div>
-    </main>
+    
     
 
-<nav class="pagination-container flex justify-between  my-8 align-center">
+<nav class="pagination-container flex justify-between  my-8">
   <button class="pagination-button cursor-pointer shrink-0 hover:bg-pink hover:text-white sm:hidden  first:ml-0 text-xs font-semibold flex w-8 h-8 mx-1 p-0 rounded-full items-center justify-center leading-tight relative border border-solid border-silver bg-white text-silver" id="prev-button" aria-label="Previous page" title="Previous page">
     &lt;
   </button>
 
-  <div id="pagination-numbers" class="flex hidden m-y-4 sm:block items-center justify-center">
+  <div id="pagination-numbers" class="flex hidden ml-14 sm:block items-center justify-center">
 
   </div>
 
@@ -129,7 +128,39 @@
 </div>
 </div>
 </div>
+</main>
 
+<footer class="footer">
+  <div class="border-t-2 py-[84] px-[120] m-y-13 h-[598] md:h-[266]">
+    <ul class="flex-col flex md:flex-row-reverse md:gap-x-6 gap-y-10 justify-between md:gap-[48]">
+      
+  <li class="flex flex-col mb-[48]">
+<a class="upercase">FAQ</a>
+<a class="upercase">RETURNS</a>
+<a class="upercase">CONTACT</a>
+  </li>
+    <li class="flex flex-col mb-[48]">
+      <a class="upercase">TERMS & CONDITIONS</a>
+      <a class="upercase">PRIVACY POLICY</a>
+<a class="upercase">COOKIE POLICY</a>
+<a class="'uppercase">COOKIE SETTINGS</a>   
+    </li>
+      <li class="flex flex-col mb-[48]">
+        <a class="upercase">ABOUT SECOND CHANCE</a>
+        <a class="upercase">CAREER</a>
+        <a class="upercase">FACEBOOK</a>
+        <a class="text-upercase">INSTAGRAM</a>
+      </li>
+
+          <li class="flex flex-col mb-[48]">
+            <img class="cursor-pointer shrink-0" height="82px" width="82px" src="./images/logo-woodoo.svg" alt="logo-woodoo" />
+          </li>
+
+</ul>
+
+  </div>
+
+</footer>
 
   </body>
 </html>
