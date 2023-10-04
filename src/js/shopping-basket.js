@@ -131,7 +131,7 @@ function removeItem(evt) {
   
 function totalPrice(products) {
   let total = 0;
-      for (i = 0; i < products.length; i++) {
+      for (i = 0; i < products.length; i+=1) {
         total += Number(products[i].variants[0].price);
       }
       return Number(total);
@@ -165,7 +165,7 @@ function decrease(evt) {
   
 
   function renderMarkupList(data) {
-    console.log(data);
+    // console.log(data);
     const list = data.map(({ id, images, title, variants }) => {
       const picture = images[0];
       const card = `
