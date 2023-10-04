@@ -18,18 +18,19 @@ export const renderMarkup = (products) => {
   }) => {
     const picture = images[0];
 
-    const card = `<li class="galleryEl block my-auto" data-id=${id} >
+    const card = `<li class="galleryEl block" data-id=${id}>
         
-    <div class="max-w-[342px] md:max-w-[300px] mx-auto mb-12 bg-white overflow-hidden rounded-xl shadow-lg items-center">
-    <div class="h-[300px] w-[342px] md:w-[300px]  overflow-hidden items-center flex">
-        <img class="contain h-full w-full my-auto" src='${images.length === 0
+    <div class="group mx-auto w-[342px] md:w-[300px] h-[402px] bg-white rounded-xl shadow-lg">
+    <div class="h-[300px] w-[342px] md:w-[300px] overflow-hidden rounded-md bg-gray group-hover:opacity-75 flex align-center">
+        <img class="h-full w-full object-cover object-center lg:h-full lg:w-full" src='${images.length === 0
         ? `${notPic}`
         : `${picture.src}`
       }'alt="product photo ${id}"/> 
     </div>
+
     <div class="flex justify-between px-1 my-3">
     <div>
-       <h3>${title}</h3>
+       <h3 class='overflow-hidden'>${title}</h3>
        <p>${variants[0].price}</p>
     </div>
         
@@ -37,9 +38,11 @@ export const renderMarkup = (products) => {
     <p>Requires shipping: <br/> ${variants[0].requires_shipping}</p>
     </div>
     </div>
+    
   
     <button type='button' data-id=${id} data-action="save" class="button w-full rounded-xl mb-0 py-2 px-4 bg-black text-white font-semibold rounded-sd shadow-md hover:bg-pink focus:outline-none focus:ring-2 focus:ring-dark-grey focus:ring-opacity-75">ADD TO CART</button>
-        </li> 
+    </div>    
+    </li> 
     `;
     return card;
             

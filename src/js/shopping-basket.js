@@ -7,6 +7,12 @@ const modal = document.querySelector('.modal');
 const productsList = document.querySelector('.list');
 const closeModalBtn = document.querySelector('.close')
 const closeBtn = document.querySelector('.close-btn')
+const removeCard = document.querySelector('.list');
+const checkout = document.querySelector('.checkout');
+
+let count = 1;
+let total = 0;
+
 
 const save = (key, value) => {
   try {
@@ -29,12 +35,16 @@ const load = key => {
 function showBackdrop() {
   backdrop.classList.remove('opacity-0');
   backdrop.classList.add('opacity-100');
+  backdrop.classList.remove('translate-x-full');
+  backdrop.classList.add('translate-x-0');
   showModal();
 }
 function hideBackdrop(evt) {
     evt.preventDefault();
   backdrop.classList.remove('opacity-100');
   backdrop.classList.add('opacity-0');
+  backdrop.classList.remove('translate-x-0');
+  backdrop.classList.add('translate-x-full');
   closeModal();
 }
  
@@ -48,21 +58,15 @@ function closeModal() {
   modal.classList.add('translate-x-full');
 }
 
-const handleGallery = (evt) => {
-  let shoppingBagAllProducts = load('shopping-list') ? load('shopping-list') : [];
-  let shoppingBag = load('favorite-list') ? load('favorite-list') : [];
+const handleGallery = () => {
   let favoriteCards = load('favorite-list-object') ? load('favorite-list-object') : [];
   
   showBackdrop();
   renderMarkupList(favoriteCards);
 
   const totalEl = document.querySelector('.total');
-  totalPrice = favoriteCards.reduce((total, product) => {return Number(total) + Number(product.variants[0].price.split('.')[0])}, 0);
-  
-  totalEl.innerHTML = totalPrice;
-
-  const removeCard = document.querySelector('.list');
-  removeCard.addEventListener('click', removeItem);
+  const price = totalPrice(favoriteCards);
+  totalEl.innerHTML = price;
 };
 
 function removeItem(evt) {
@@ -70,97 +74,131 @@ function removeItem(evt) {
     return;
   }
   let shoppingBag = load('favorite-list') ? load('favorite-list') : [];
-  let shoppingBagAllProducts = load('shopping-list') ? load('shopping-list') : [];
   let favoriteProducts = load('favorite-list-object') ? load('favorite-list-object') : [];
-  let cardId = Number(evt.target.closest('.remove').getAttribute('data-id'));
-  let productCard = evt.target.closest('.card-product')
+  let cardId = Number(evt.target.closest("#remove").getAttribute('data-id'));
+  let productCard = evt.target.closest(".card-product")
 
- 
-  productCard.remove();
   const newData = shoppingBag.filter((item) => item !== cardId);
   save('favorite-list', newData);
 
   const newDataList = favoriteProducts.filter((item) => item.id !== cardId);
   save('favorite-list-object', newDataList);
 
+  productCard.remove();
+  console.log(newDataList);
   const totalEl = document.querySelector('.total');
-
-    const products = newData.map(item => {
-    const [data] = shoppingBagAllProducts.filter(product =>
-    product.id === item);
-    return data;
-    });
   
-  totalPrice = products.reduce((total, product) => {return Number(total) + Number(product.variants[0].price.split('.')[0])}, 0);
-  totalEl.textContent = totalPrice;
+  const price = totalPrice(newDataList);
+  totalEl.textContent = price;
+  };
+
+  
+function totalPrice(products) {
+  let total = 0;
+      for (i = 0; i < products.length; i++) {
+        total += Number(products[i].variants[0].price);
+      }
+      return Number(total);
+};
+
+
+
+function increase(evt) {
+  let counterEl = evt.target.closest(".increase")
+  count = Number(counterEl.textContent) + 1;
+  return count;
 }
 
-function renderMarkupList(data) {
-  console.log(data);
-  const list = data.map(({ id, images, title, body_html, variants }) => {
-    const picture = images[0];
-    const card = `
+function decrease(evt) {
+  let counterEl = evt.target.closest(".decrease")
+  if (Number(counterEl.textContent) === 1) {
+    counterEl.setAttribute("disabled", "");
+    return;
+  }; 
+  
+  count = Number(counterEl.textContent) - 1;
+  return count;
+}
+  
+
+  function renderMarkupList(data) {
+    console.log(data);
+    const list = data.map(({ id, images, title, variants }) => {
+      const picture = images[0];
+      const card = `
     <li class="flex py-6 card-product">
-                      <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                      <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray">
                         <img
                         src="${images.length === 0
-                         ? `${notPic}`
-                         : `${picture.src}`
-                         }" 
+          ? `${notPic}`
+          : `${picture.src}`
+        }" 
                          alt="product photo ${id}" class="h-full w-full object-cover object-center">
                       </div>
 
                       <div class="ml-4 flex flex-1 flex-col">
                         <div>
-                          <div class="flex justify-between text-base font-medium text-gray-900">
-                            <h3>
-                              <a href="#">${title}</a>
-                            </h3>
-                            <p class="ml-4">${variants[0].price}</p>
+                          <div class="flex justify-between gap-10 text-base font-medium text-black">
+                          <h3>${title}</h3>
+                          <button type="button" data-id=${id} id="remove" class="cursor-pointer font-medium hover:text-pink relative text-gray">
+                            Remove
+                            </button>
+                            
                           </div>
                         </div>
-                        <div class="flex flex-1 items-end justify-between text-sm">
-                          <p class="text-gray-500">${body_html}</p>
-                          <div class="flex">
-                            <button type="button" data-id=${id} class="remove font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
-                          </div>
+                        
+                        <div class="ml-4 my-4 text-sm">
+                        
+                        <div data-id='counter' class='flex gap-8 mb-4'>
+                        <button data-id='decrease' type='button' class='decrease'>-</button>
+                        <p class='counter'>1</p>
+                        <button type='button' data-id='increase' class='increase'>+</button>
+                        </div>
+
+                        <p">${variants[0].price}</p>
                         </div>
                       </div>
                     </li>
     `;
-    return card;
-  }).join('');
+      return card;
+    }).join('');
 
-  productsList.innerHTML=list;
-};
+    productsList.innerHTML = list;
+  };
 
 
-const handleStorageList = (evt) => {
-  evt.preventDefault();
-  if (evt.target.nodeName !== 'BUTTON') {
-    return;
-  }
+  const handleStorageList = (evt) => {
+    evt.preventDefault();
 
-  let cardId = Number(evt.target.getAttribute('data-id'));
-  console.log(cardId);
-  let shoppingBag = load('favorite-list') ? load('favorite-list') : [];
-  const searchId = shoppingBag.find(item => item === cardId)
-  if (!searchId) shoppingBag.push(cardId);
-  save('favorite-list', shoppingBag);
+    if (evt.target.nodeName !== 'BUTTON') {
+      return;
+    }
+
+    let cardId = Number(evt.target.getAttribute('data-id'));
+    console.log(cardId);
+    let shoppingBag = load('favorite-list') ? load('favorite-list') : [];
+    const searchId = shoppingBag.find(item => item === cardId)
+    if (!searchId) shoppingBag.push(cardId);
+    save('favorite-list', shoppingBag);
   
-  let shoppingBagAllProducts = load('shopping-list') ? load('shopping-list') : [];
-  const [product] = shoppingBagAllProducts.filter(product =>
-    product.id === cardId);
-  let favoriteCards = load('favorite-list-object') ? load('favorite-list-object') : [];
-  favoriteCards.push(product);
-  save('favorite-list-object', favoriteCards);
+    let shoppingBagAllProducts = load('shopping-list') ? load('shopping-list') : [];
+    const [product] = shoppingBagAllProducts.filter(product =>
+      product.id === cardId);
+    console.log(product);
 
-  let favoriteProducts = load('favorite-list-object') ? load('favorite-list-object') : [];
-};
+    let favoriteCards = load('favorite-list-object') ? load('favorite-list-object') : [];
+    console.log(favoriteCards);
+    const searchIdFavorite = favoriteCards.find(item => item.id === cardId)
+    if (!searchIdFavorite) favoriteCards.push(product);
+    save('favorite-list-object', favoriteCards);
+  };
+
 
 itemList.addEventListener('click', handleStorageList);
 cardList.addEventListener('click', handleGallery);
 closeModalBtn.addEventListener('click', hideBackdrop);
 closeBtn.addEventListener('click', hideBackdrop);
-
-
+removeCard.addEventListener('click', removeItem);
+checkout.addEventListener('click', hideBackdrop);
+// removeCard.addEventListener('click', increase);
+// removeCard.addEventListener('click', decrease);
