@@ -245,4 +245,3 @@ checkout.addEventListener('click', hideBackdrop);
 removeCard.addEventListener('click', removeItem);
 removeCard.addEventListener('click', increase);
 removeCard.addEventListener('click', decrease);
-removeCard.addEventListener('click', handleCount);
