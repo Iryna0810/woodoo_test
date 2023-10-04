@@ -20,8 +20,8 @@ class APIWoodoo {
   }
 }
 
-// const woodooCardContainer = document.querySelector('.galleryCards-js')
 const ApiWoodooCards = new APIWoodoo();
+
 
 
 const handlerLoadWindow = () => {
@@ -38,13 +38,5 @@ const handlerLoadWindow = () => {
 };
 
 
-// function save(key, value) {
-//   try {
-//     const serializedState = JSON.stringify(value);
-//     localStorage.setItem(key, serializedState);
-//   } catch (error) {
-//     console.error('Set state error: ', error.message);
-//   }
-// }
 window.addEventListener('load', handlerLoadWindow);
 export default APIWoodoo

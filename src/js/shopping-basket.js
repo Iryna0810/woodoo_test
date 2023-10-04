@@ -9,10 +9,8 @@ const closeModalBtn = document.querySelector('.close')
 const closeBtn = document.querySelector('.close-btn')
 const removeCard = document.querySelector('.list');
 const checkout = document.querySelector('.checkout');
-
 let count = 1;
 let total = 0;
-
 
 const save = (key, value) => {
   try {
@@ -58,24 +56,63 @@ function closeModal() {
   modal.classList.add('translate-x-full');
 }
 
-const handleGallery = () => {
+const handleGallery = (evt) => {
   let favoriteCards = load('favorite-list-object') ? load('favorite-list-object') : [];
   
   showBackdrop();
   renderMarkupList(favoriteCards);
-
+  
   const totalEl = document.querySelector('.total');
   const price = totalPrice(favoriteCards);
   totalEl.innerHTML = price;
+  // console.log(evt.target.dataset.counter);
+
+//   for (let btn of document.querySelectorAll("#counter")) {
+//   let clicks = 0
+  
+//   btn.addEventListener('click', e => {
+//     btn.textContent = ++clicks
+//   })
+  // }
+  // const counterEl = document.querySelectorAll('.counter');
+  // // const increaseEl = document.querySelectorAll('.increase')
+  //   console.log(counterEl);
+  // for (i = 0; i < counterEl.length; i++){
+  //   console.log(counterEl);
+
+  // }
+
+  
+  // for (i = 0; i < favoriteCards.length; i += 1){
+    
+
+  // }
+  
+  // for (i = 0; i < counterEl.length; i++){
+  //   console.log(counterEl[i]);
+
+  // }
+  // console.log(counterEl[1]);
+  // counterEl.map((item) => {
+    
+  //   console.log(item);
+    
+  // })
+  
+  // let counterEl = evt.target.closest(".card-product");
+  // console.log(counterEl);
+
 };
 
 function removeItem(evt) {
-  if (evt.target === evt.currentTarget) {
+  if (evt.target.nodeName !== 'BUTTON') {
     return;
   }
   let shoppingBag = load('favorite-list') ? load('favorite-list') : [];
   let favoriteProducts = load('favorite-list-object') ? load('favorite-list-object') : [];
-  let cardId = Number(evt.target.closest("#remove").getAttribute('data-id'));
+
+  let cardId = Number(evt.target.closest(".card-product").getAttribute('data-id'));
+  
   let productCard = evt.target.closest(".card-product")
 
   const newData = shoppingBag.filter((item) => item !== cardId);
@@ -87,7 +124,6 @@ function removeItem(evt) {
   productCard.remove();
   console.log(newDataList);
   const totalEl = document.querySelector('.total');
-  
   const price = totalPrice(newDataList);
   totalEl.textContent = price;
   };
@@ -101,23 +137,30 @@ function totalPrice(products) {
       return Number(total);
 };
 
-
-
 function increase(evt) {
-  let counterEl = evt.target.closest(".increase")
-  count = Number(counterEl.textContent) + 1;
-  return count;
-}
+  if (!evt.target.classList.contains('increase')) return;
+
+  let parent = evt.target.closest('.counter-container');
+  let parentArray = parent.children;
+  let counter = parentArray[1];
+  let count = Number(counter.textContent);
+  count += 1;
+  counter.textContent = count;
+  }
+
+
+
 
 function decrease(evt) {
-  let counterEl = evt.target.closest(".decrease")
-  if (Number(counterEl.textContent) === 1) {
-    counterEl.setAttribute("disabled", "");
-    return;
-  }; 
-  
-  count = Number(counterEl.textContent) - 1;
-  return count;
+  if (!evt.target.classList.contains('decrease')) return;
+
+  let parent = evt.target.closest('.counter-container');
+  let parentArray = parent.children;
+  let counter = parentArray[1];
+  let count = Number(counter.textContent);
+  if (count <= 1) return;
+  count -= 1;
+  counter.textContent = count;
 }
   
 
@@ -126,7 +169,7 @@ function decrease(evt) {
     const list = data.map(({ id, images, title, variants }) => {
       const picture = images[0];
       const card = `
-    <li class="flex py-6 card-product">
+    <li class="flex py-6 card-product" data-id=${id}>
                       <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray">
                         <img
                         src="${images.length === 0
@@ -140,7 +183,7 @@ function decrease(evt) {
                         <div>
                           <div class="flex justify-between gap-10 text-base font-medium text-black">
                           <h3>${title}</h3>
-                          <button type="button" data-id=${id} id="remove" class="cursor-pointer font-medium hover:text-pink relative text-gray">
+                          <button type="button" data-id=${id} class="remove cursor-pointer font-medium hover:text-pink relative text-gray">
                             Remove
                             </button>
                             
@@ -149,10 +192,10 @@ function decrease(evt) {
                         
                         <div class="ml-4 my-4 text-sm">
                         
-                        <div data-id='counter' class='flex gap-8 mb-4'>
-                        <button data-id='decrease' type='button' class='decrease'>-</button>
-                        <p class='counter'>1</p>
-                        <button type='button' data-id='increase' class='increase'>+</button>
+                        <div data-id='counter' class='counter-container flex gap-8 mb-4'>
+                        <p class='decrease cursor-pointer'>-</p>
+                        <p class='counter' id='${id}' data-counter>1</p>
+                        <p class='increase cursor-pointer'>+</p>
                         </div>
 
                         <p">${variants[0].price}</p>
@@ -198,7 +241,8 @@ itemList.addEventListener('click', handleStorageList);
 cardList.addEventListener('click', handleGallery);
 closeModalBtn.addEventListener('click', hideBackdrop);
 closeBtn.addEventListener('click', hideBackdrop);
-removeCard.addEventListener('click', removeItem);
 checkout.addEventListener('click', hideBackdrop);
-// removeCard.addEventListener('click', increase);
-// removeCard.addEventListener('click', decrease);
+removeCard.addEventListener('click', removeItem);
+removeCard.addEventListener('click', increase);
+removeCard.addEventListener('click', decrease);
+removeCard.addEventListener('click', handleCount);
