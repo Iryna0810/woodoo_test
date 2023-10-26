@@ -19,7 +19,6 @@ export const renderMarkup = (products) => {
     const picture = images[0];
 
     const card = `<li class="galleryEl block" data-id=${id}>
-        
     <div class="group mx-auto w-[342px] md:w-[300px] h-[402px] bg-white rounded-xl shadow-lg">
     <div class="h-[300px] w-[342px] md:w-[300px] overflow-hidden rounded-md bg-gray group-hover:opacity-75 flex align-center">
         <img class="h-full w-full object-cover object-center lg:h-full lg:w-full" src='${images.length === 0
